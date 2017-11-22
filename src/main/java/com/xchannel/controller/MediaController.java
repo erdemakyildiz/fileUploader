@@ -30,11 +30,13 @@ import java.util.List;
 @Controller
 public class MediaController {
 
+
     @Autowired
     private MediaService mediaService;
 
     @Autowired
     private GridFsTemplate gridFsTemplate;
+
 
     @GetMapping(path = "upload/{title}")
     public @ResponseBody String uploadMediaObject(@PathVariable(value = "title") final String title, Model model) {

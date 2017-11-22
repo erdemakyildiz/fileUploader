@@ -2,102 +2,29 @@
 <head>
     <title>XChannel 1.0 Alpha</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="manifest" href="../../js/manifest.json" />
 
-    <style>
-        body{
-            font-family: "Trebuchet MS";
-            background-color: #f5f5f5;
-
-        }
-
-        #logo{
-            width: 750px;
-            height: 150px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:50px;
-        }
-
-        #logo span{
-            font-size:100px;
-            color: #fa4b69;
-        }
-
-        #uploadContent{
-            width: 750px;
-            height: 50px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:210px;
-        }
-
-        #mainContent{
-            width: 750px;
-            height: 280px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:270px;
-        }
-
-        #mainContent tr td{
-            border-bottom: 1px dashed #cccccc;
-        }
-
-        #paging{
-            width: 750px;
-            height: 20px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:560px;
-        }
-
-    </style>
+    <!-- START INITIALIZATION CODE -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (!Notification) {
-                return;
-            }
-
-            if (Notification.permission !== "granted")
-                Notification.requestPermission();
-        });
-
-        function notifyMe() {
-            if (Notification.permission !== "granted")
-                Notification.requestPermission();
-            else {
-                var notification = new Notification('Notification title', {
-                    icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-                    body: "Hey there! You've been notified!",
-                });
-
-                notification.onclick = function () {
-                    window.open("http://stackoverflow.com/a/13328397/1269037");
-                };
-
-            }
-
-        }
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyADH1UuZ6b4_C3HAIEwQhPVxR6-nfa82wM",
+            authDomain: "xchannel-2f56d.firebaseapp.com",
+            databaseURL: "https://xchannel-2f56d.firebaseio.com",
+            projectId: "xchannel-2f56d",
+            storageBucket: "xchannel-2f56d.appspot.com",
+            messagingSenderId: "838659413827"
+        };
+        firebase.initializeApp(config);
     </script>
+    <!-- END INITIALIZATION CODE -->
+
+    <script src="../../js/WebPushManager.js"></script>
+
 </head>
 <body>
-<button onclick="notifyMe()">Notify me!</button>
 
 <div id="logo">
     <div  th:if="${message}">

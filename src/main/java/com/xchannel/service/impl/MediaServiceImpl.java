@@ -11,7 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -25,7 +29,22 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Media save(Media media) {
-        return mediaRepository.save(media);
+        Media savedMedia =  mediaRepository.save(media);
+
+        try {
+            String stringUrl = "http://ortc-developers-useast1-s0001.realtime.co/send";
+            URL url = new URL(stringUrl);
+            URLConnection uc = url.openConnection();
+
+            uc.setRequestProperty("AK","K4xqxB");
+            uc.setRequestProperty("AT","");
+            uc.setRequestProperty("C","channel-ee31dc0a-8b9e-4c7b-9680-62a06915ada8");
+            uc.setRequestProperty("M","12345678_1-1_This is a web push notification sent using the Realtime REST API");
+
+            InputStreamReader inputStreamReader = new InputStreamReader(uc.getInputStream());
+        }catch (Exception e){}
+
+        return savedMedia;
     }
 
     @Override
