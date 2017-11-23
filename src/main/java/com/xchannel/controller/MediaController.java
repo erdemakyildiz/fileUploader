@@ -3,6 +3,7 @@ package com.xchannel.controller;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
 import com.xchannel.entity.Media;
+import com.xchannel.service.FirebaseTokenRegisterService;
 import com.xchannel.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -36,7 +37,6 @@ public class MediaController {
 
     @Autowired
     private GridFsTemplate gridFsTemplate;
-
 
     @GetMapping(path = "upload/{title}")
     public @ResponseBody String uploadMediaObject(@PathVariable(value = "title") final String title, Model model) {

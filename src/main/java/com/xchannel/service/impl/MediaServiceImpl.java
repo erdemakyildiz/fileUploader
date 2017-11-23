@@ -1,14 +1,19 @@
 package com.xchannel.service.impl;
 
+import com.mongodb.gridfs.GridFSDBFile;
 import com.xchannel.entity.Media;
 import com.xchannel.repository.MediaRepository;
 import com.xchannel.service.MediaService;
 import jersey.repackaged.com.google.common.collect.Lists;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStreamReader;
@@ -27,23 +32,12 @@ public class MediaServiceImpl implements MediaService {
     @Autowired
     MediaRepository mediaRepository;
 
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
+
     @Override
     public Media save(Media media) {
         Media savedMedia =  mediaRepository.save(media);
-
-        try {
-            String stringUrl = "http://ortc-developers-useast1-s0001.realtime.co/send";
-            URL url = new URL(stringUrl);
-            URLConnection uc = url.openConnection();
-
-            uc.setRequestProperty("AK","K4xqxB");
-            uc.setRequestProperty("AT","");
-            uc.setRequestProperty("C","channel-ee31dc0a-8b9e-4c7b-9680-62a06915ada8");
-            uc.setRequestProperty("M","12345678_1-1_This is a web push notification sent using the Realtime REST API");
-
-            InputStreamReader inputStreamReader = new InputStreamReader(uc.getInputStream());
-        }catch (Exception e){}
-
         return savedMedia;
     }
 
@@ -74,7 +68,9 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public void uploadMediaObject(String title) {
-        mediaRepository.delete(title);
+        Media media = mediaRepository.findFirstByMediaTitleEquals(title);
+        gridFsTemplate.delete(new Query(Criteria.where("_id").is(media.getFileObjectId())));
+        mediaRepository.delete(media);
     }
 
     @Override
