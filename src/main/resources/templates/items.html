@@ -1,0 +1,22 @@
+<script src="./../js/items.js"></script>
+<link rel="stylesheet" href="./../css/items.css" />
+
+<div class="itemContainer">
+    <div id="uplaod">
+        <form>
+            <input type="text" placeholder="Dosya Adı" />
+            <input type="file" placeholder="Dosya Seçiniz" />
+
+            <input type="submit" value="Gönder" />
+        </form>
+    </div>
+
+    <div id="items">
+        <div class="item" th:each="file : ${files}" th:text="${file.mediaTitle}" th:href="'/media/' + ${file.fileObjectId}">
+        </div>
+    </div>
+
+    <div id="paging">
+        <div class="pageItem" th:each="page : ${pages}" th:href="'?p=' + ${page}" th:text="${page}"></div>
+    </div>
+</div>

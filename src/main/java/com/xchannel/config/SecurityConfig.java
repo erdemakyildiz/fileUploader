@@ -4,12 +4,14 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -21,16 +23,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomAuthProvider authProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/resources/templates/login.html").permitAll()
+                .antMatchers("/resources/templates/register.html").permitAll()
+                .antMatchers("/resources/templates/items.html").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/user/login")
+                    .formLogin()
+                    .loginPage("/user/login")
+                    .defaultSuccessUrl("/user/success")
                 .permitAll();
+
 
         http.csrf().disable();
     }
@@ -38,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("root").password("x@123").roles("USER");
+        auth.authenticationProvider(authProvider);
     }
+
 
 }

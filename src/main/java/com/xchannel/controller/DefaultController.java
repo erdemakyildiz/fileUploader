@@ -29,4 +29,18 @@ public class DefaultController {
         return new ModelAndView("index");
     }
 
+
+    @RequestMapping(path = "register")
+    public ModelAndView register(Model model){
+        return new ModelAndView("register");
+    }
+
+    @RequestMapping(path = "items")
+    public ModelAndView items(Model model, @RequestParam(value = "p", defaultValue = "0") int page){
+        model.addAttribute("files",mediaService.findAll((!(page <= 0) ? page - 1 : 0)));
+        model.addAttribute("pages", mediaService.getPages());
+
+        return new ModelAndView("items");
+    }
+
 }

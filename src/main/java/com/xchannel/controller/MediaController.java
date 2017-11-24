@@ -51,6 +51,12 @@ public class MediaController {
         return mediaService.findAll();
     }
 
+    @GetMapping(path = "pageableMedia", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Media> pageableMedia(@RequestParam(value = "p", defaultValue = "0") int page) {
+        return mediaService.findAll(page);
+    }
+
     @PostMapping(path = "uploadFile", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ModelAndView setMediaObject(@RequestParam("file") MultipartFile file, @RequestParam("fileTitle") String fileTitle,
                                        Model model, HttpServletRequest request) {

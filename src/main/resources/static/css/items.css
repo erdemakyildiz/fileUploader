@@ -1,0 +1,42 @@
+.itemContainer{
+    height: 520px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top:10px;
+    background-color: #f8f8f8;
+}
+
+#uplaod{
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+
+#items{
+    height: 420px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.item{
+    width: 200px;
+    float:left;
+    padding:10px;
+    margin: 10px;
+    border:1px solid #dcdcdc;
+    cursor:pointer;
+}
+
+.item:hover{
+    background-color: #cccccc;
+    color:#ffffff;
+}
+
+#paging{
+    padding:10px;
+}
+
+.pageItem{
+    cursor:pointer;
+    float:left;
+    margin-right: 10px;
+}

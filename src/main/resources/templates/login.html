@@ -1,57 +1,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>XChannel 1.0 Alpha</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="./../css/index.css"/>
+    <script src="./../js/index.js"></script>
 
-    <style>
-        body{
-            font-family: "Trebuchet MS";
-            background-color: #f5f5f5;
-
-        }
-
-        #logo{
-            width: 750px;
-            height: 150px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:50px;
-        }
-
-        #logo span{
-            font-size:100px;
-            color: #fa4b69;
-        }
-
-        #login{
-            width: 750px;
-            height: 50px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin:auto;
-            margin-top:210px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./../css/index.css" />
+    <link rel="stylesheet" href="./../css/login.css"/>
+    <script src="./../js/login.js"></script>
 </head>
 <body>
 
-
-<div id="login">
-    <form method="POST" action="/user/login">
-        <input type="text" name="username" value="root" style="visibility: hidden"/>
-        <input style="width:250px;  " type="password" name="password" placeholder="şifrenizi girin" />
-        <input type="submit" value="al içeri beni" />
-    </form>
-
+<div id="header">
+    adsd
 </div>
 
+<div id="loader">
+    <div id="box"></div>
+    <div id="hill"></div>
+</div>
+
+<div id="main">
+
+    <div class="container">
+        <div class="wrapper">
+
+            <ul class="steps">
+                <li class="is-active">Giriş</li>
+            </ul>
+            <form id="loginForm" class="form-wrapper" action="javascript:void()">
+                <fieldset class="section is-active">
+                    <h3>Kullanıcı Bilgileri</h3>
+
+                    <input type="text"  name="username"  id="username" placeholder="Kullanıcı Adı"/>
+                    <input type="password" name="password" id="password" placeholder="Şifre"/>
+
+                    <input type="button" class="button openRegister" style="margin-right: 100px;" value="Kayıt Ol"/>
+                    <input type="button" class="button login" value="Giriş"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+    </div>
+
+</div>
 </body>
 </html>
