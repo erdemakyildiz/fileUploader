@@ -9,6 +9,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -66,8 +67,9 @@ public class UserController {
     @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<User> getUser(HttpServletRequest httpRequest){
-        User user = userService.getUser(httpRequest.getRemoteUser());
-        System.out.println(httpRequest.getRemoteUser());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUser(username);
+        System.out.println(username);
         if (user == null){
             return ResponseEntity.badRequest().body(null);
         }else{

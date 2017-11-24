@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -71,10 +72,13 @@ public class MediaController {
         } else {
             Media media = new Media();
 
-            media.setUser(request.getRemoteUser());
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            media.setUser(username);
+
             media.setHost(request.getRemoteHost());
-            media.setAdress(request.getRemoteAddr());
-            media.setPort(request.getRemotePort());
+
+//            media.setAdress(request.getRemoteAddr());
+//            media.setPort(request.getRemotePort());
 
             media.setMediaTitle(fileTitle);
             media.setCreateDate(new Date());
