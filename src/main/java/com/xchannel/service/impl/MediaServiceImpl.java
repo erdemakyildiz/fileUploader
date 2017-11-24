@@ -68,7 +68,7 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public void uploadMediaObject(String title) {
-        Media media = mediaRepository.findFirstByMediaTitleEquals(title);
+        Media media = mediaRepository.findOne(title);
         gridFsTemplate.delete(new Query(Criteria.where("_id").is(media.getFileObjectId())));
         mediaRepository.delete(media);
     }
