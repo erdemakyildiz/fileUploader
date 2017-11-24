@@ -24,7 +24,8 @@ $(document).ready(function(){
             url:'/',
             data: {username:username, password:password},
             success:function(data){
-                setTimeout(function () {
+                setTimeout(function (data) {
+                    debugger
                     $(".container").css({ maxWidth:'100%' });
                     $("#mask").fadeOut();
 
@@ -42,9 +43,8 @@ $(document).ready(function(){
                 },500);
             },
             error:function (err) {
-
+                debugger
                 setTimeout(function () {
-                    debugger
                     $("#mask").fadeOut();
                     $("#main").fadeIn();
                     $(".loginUser").hide();

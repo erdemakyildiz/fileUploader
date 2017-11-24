@@ -9,7 +9,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by erdem akyildiz on 22.11.2017.
@@ -31,6 +31,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @GetMapping(path = "all")
+    @ResponseBody
+    public List<User> all(){
+        return userService.findAll();
+    }
 
     @GetMapping(path = "login")
     public ModelAndView login(){
@@ -67,14 +73,11 @@ public class UserController {
     @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<User> getUser(HttpServletRequest httpRequest){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.getUser(username);
-        System.out.println(username);
+        User user = userService.getUser(httpRequest.getRemoteUser());
+        System.out.println(httpRequest.getRemoteUser());
         if (user == null){
             return ResponseEntity.badRequest().body(null);
         }else{
-
-            System.out.println(user.getUsername());
             user.setPassword("");
             return ResponseEntity.ok().body(user);
         }
