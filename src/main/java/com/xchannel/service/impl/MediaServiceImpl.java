@@ -46,8 +46,12 @@ public class MediaServiceImpl implements MediaService {
         List<String> pages = new ArrayList<>();
         Long count = mediaRepository.count();
         int pageCount = count.intValue() / 10;
+
+        if (pageCount % 10 == 0)
+            pageCount -= 1;
+
         for (int i = 0; i <= pageCount; i++) {
-            pages.add(String.valueOf(i));
+            pages.add(String.valueOf(i+1));
         }
 
         return pages;

@@ -23,7 +23,7 @@ public class DefaultController {
 
     @RequestMapping(path = "/")
     public ModelAndView getHomePage(Model model, @RequestParam(value = "p", defaultValue = "0") int page){
-        model.addAttribute("files",mediaService.findAll(page));
+        model.addAttribute("files",mediaService.findAll((!(page < 0) ? page - 1 : 0)));
         model.addAttribute("pages", mediaService.getPages());
 
         return new ModelAndView("index");
