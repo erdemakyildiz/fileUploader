@@ -32,11 +32,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(path = "all")
-    @ResponseBody
-    public List<User> all(){
-        return userService.findAll();
-    }
+//    @GetMapping(path = "all")
+//    @ResponseBody
+//    public List<User> all(){
+//        return userService.findAll();
+//    }
 
     @GetMapping(path = "login")
     public ModelAndView login(){
@@ -62,12 +62,19 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        User savedUser = userService.saveUser(user);
 
-        if (!StringUtils.isEmpty(savedUser.getId()))
-            return ResponseEntity.ok().build();
-        else
+        if (userService.getUser(user.getUsername()) == null &&
+                userService.getUser(user.getEmail()) == null ) {
+
+            User savedUser = userService.saveUser(user);
+
+            if (!StringUtils.isEmpty(savedUser.getId()))
+                return ResponseEntity.ok().build();
+            else
+                return ResponseEntity.badRequest().build();
+        }else {
             return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)

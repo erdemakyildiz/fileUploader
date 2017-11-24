@@ -45,9 +45,9 @@ public class MediaServiceImpl implements MediaService {
     public List<String> getPages() {
         List<String> pages = new ArrayList<>();
         Long count = mediaRepository.count();
-        int pageCount = count.intValue() / 30;
+        int pageCount = count.intValue() / 20;
 
-        if (pageCount % 30 == 0)
+        if (pageCount % 20 == 0)
             pageCount -= 1;
 
         for (int i = 0; i <= pageCount; i++) {
@@ -60,7 +60,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public List<Media> findAll(int page) {
         Sort sort = new Sort(Sort.Direction.DESC, "createDate");
-        Pageable pageable = new PageRequest(page, 30, sort);
+        Pageable pageable = new PageRequest(page, 20, sort);
         Page<Media> mediaPage = mediaRepository.findAll(pageable);
         return Lists.newArrayList(mediaPage);
     }
