@@ -18,14 +18,14 @@ $(document).ready(function(){
 
         $("#main").fadeOut(100)
         $("#mask").fadeIn();
-
+        debugger
         $.ajax({
             type:'POST',
             url:'/',
             data: {username:username, password:password},
             success:function(data){
+                debugger
                 setTimeout(function (data) {
-                    debugger
                     $(".container").css({ maxWidth:'100%' });
                     $("#mask").fadeOut();
 
