@@ -73,7 +73,7 @@
     </div>
 
     <div id="items">
-        <div class="item" th:each="file : ${files}" th:text="${file.mediaTitle}" th:href="'/media/' + ${file.fileObjectId}">
+        <div class="item wordwrap" th:each="file : ${files}" th:text="${file.mediaTitle}" th:href="'/media/' + ${file.fileObjectId}">
         </div>
     </div>
 
