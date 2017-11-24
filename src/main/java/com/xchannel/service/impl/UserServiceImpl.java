@@ -5,6 +5,7 @@ import com.xchannel.repository.UserRepository;
 import com.xchannel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by Detay on 24.11.2017.
@@ -22,14 +23,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String id) {
-        User user = userRepository.findOne(id);
+        User user = null;
+        if (!StringUtils.isEmpty(id)) {
+            user = userRepository.findOne(id);
 
-        if (user != null){
-            user = userRepository.findFirstByEmailEquals(id);
-        }
+            if (user == null) {
+                user = userRepository.findFirstByEmailEquals(id);
+            }
 
-        if (user != null){
-            user = userRepository.findFirstByUsernameEquals(id);
+            if (user == null) {
+                user = userRepository.findFirstByUsernameEquals(id);
+            }
         }
 
         return user;

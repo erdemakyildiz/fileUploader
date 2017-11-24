@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 /**
@@ -33,15 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/images/**").permitAll()
-                .antMatchers("/resources/templates/login.html").permitAll()
-                .antMatchers("/resources/templates/register.html").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/resources/templates/items.html").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    .loginPage("/user/login")
+                    .loginPage("/")
                     .defaultSuccessUrl("/user/success")
-                .permitAll();
+                    .failureUrl("/user/error")
+                .permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
 
 
         http.csrf().disable();

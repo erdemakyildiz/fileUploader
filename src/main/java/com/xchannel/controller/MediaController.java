@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,16 +59,15 @@ public class MediaController {
     }
 
     @PostMapping(path = "uploadFile", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ModelAndView setMediaObject(@RequestParam("file") MultipartFile file, @RequestParam("fileTitle") String fileTitle,
+    @ResponseBody
+    public ResponseEntity<String> setMediaObject(@RequestParam("file") MultipartFile file, @RequestParam("fileTitle") String fileTitle,
                                        Model model, HttpServletRequest request) {
         Media dbMedia = mediaService.findByTitle(fileTitle);
 
         if (fileTitle.isEmpty()) {
-            model.addAttribute("message", "İfşa Adı Zorunludur !");
-            return new ModelAndView("index");
+            return ResponseEntity.badRequest().body("İfşa Adı Zorunludur !");
         }else if (dbMedia != null){
-            model.addAttribute("message", "Bu isimde var zaten");
-            return new ModelAndView("index");
+            return ResponseEntity.badRequest().body("Bu isimde var zaten");
         } else {
             Media media = new Media();
 
@@ -83,15 +83,14 @@ public class MediaController {
             try {
                 inputStream = file.getInputStream();
             } catch (Exception e) {
-                model.addAttribute("message", "Hata var aq : " + e.getMessage());
-                return new ModelAndView("index");
+                return ResponseEntity.badRequest().body("Hata var aq : " + e.getMessage());
             }
 
             GridFSFile gridFSFile = gridFsTemplate.store(inputStream, file.getName(), file.getContentType());
             media.setFileObjectId(gridFSFile.getId().toString());
 
             mediaService.save(media);
-            return new ModelAndView(new RedirectView("../"));
+            return ResponseEntity.ok().body("ok");
         }
 
 

@@ -4,27 +4,48 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<link rel="stylesheet" href="./../css/index.css" />
 		<script src="./../js/index.js"></script>
+		<script src="./../js/main.js"></script>
+
+		<link rel="stylesheet" href="./../css/w3.css" />
+		<link rel="stylesheet" href="./../css/index.css" />
+
+		<title>ErdemShare</title>
 
 	</head>
 	<body>
 
 	<div id="header">
-		adsd
+		<img src="../../images/logo.png" id="logo" />
+		<span class="logoText">ErdemSHARE</span>
+
+		<span class="loginUser">
+			Oturum Açan Kullanıcı :
+			<span id="userName"></span>
+
+			<br />
+			<a href="../logout" style="color:#3a3a3a">Çıkış</a>
+		</span>
 	</div>
 
-	<div id="main">
+	<div id="alert">
+		<h3></h3>
+		<p></p>
+	</div>
+
+	<div id="mask">
 		<div id="loader">
-			<div id="box"></div>
+			<div id="box" ></div>
 			<div id="hill"></div>
 		</div>
 	</div>
 
-	<div class="alert">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+	<div id="main">
+
 
 	</div>
+
+
 
 	</body>
 </html>

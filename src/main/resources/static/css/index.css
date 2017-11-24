@@ -1,29 +1,49 @@
 html,
 body {
-    background-color: #404456;
+    background-color: #5590b2;
+    /*background-color: #404456;*/
     font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    font-size: 13px;
+    /*border:1px solid #9c27b0;*/
+}
+
+#logo{
+    width: 40px;
+    height: 40px;
+}
+
+#header .logoText{
+     font-size: 40px;
+     color:#f5f5f5;
+}
+
+#header .loginUser{
+    font-size: 15px;
+    color:#f5f5f5;
+    float:right;
 }
 
 #header{
     width: 100%;
     height: 100px;
-    background-color: #404456;
-    border:1px solid #f8f8f8;
+    /*border:1px solid #f8f8f8;*/
     color:#ffffff;
+    /*border:1px solid #9c27b0;*/
 }
 
 #main{
     width: 100%;
-    height: 100%;
-    background-color: #404456;
+    height: 700px;
+    /*border:1px solid #9c27b0;*/
 }
 
 #loader {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -2.7em;
-    margin-left: -2.7em;
+    margin-top: -3.7em;
+    margin-left: -3.7em;
     width: 5.4em;
     height: 5.4em;
 }
@@ -32,8 +52,8 @@ body {
     position: absolute;
     width: 7.1em;
     height: 7.1em;
-    top: 1.7em;
-    left: 1.7em;
+    top: 2.1em;
+    left: 2.1em;
     background-color: transparent;
     border-left: .25em solid whitesmoke;
     transform: rotate(45deg);
@@ -45,19 +65,19 @@ body {
     width: 7.1em;
     height: 7.1em;
     left: 0;
-    background-color: #404456;
+    background-color: inherit;
 }
 
 #box {
     position: absolute;
     left: 0;
     bottom: -.1em;
-    width: 1em;
-    height: 1em;
+    width: 2em;
+    height: 2em;
     background-color: transparent;
-    border: .25em solid whitesmoke;
+    border: .15em solid whitesmoke;
     border-radius: 15%;
-    transform: translate(0, -1em) rotate(-45deg);
+    transform: translate(0, -2em) rotate(-45deg);
     animation: push 2.5s cubic-bezier(.79, 0, .47, .97) infinite;
 }
 
@@ -97,18 +117,21 @@ body {
     }
 }
 
-.alert {
-    position: absolute;
+/* The alert message box */
+#alert {
     padding: 20px;
-    margin: 20px;
-    top: 0;
-    right: 0;
-    width: 500px;
-    background-color: #d95a45; /* Red */
+    background-color: #f44336; /* Red */
     color: white;
-    opacity: 0;
+    z-index: 100;
+    position: absolute;
+    background-color: inherit;
+    bottom:0;
+    right:0;
+    margin:auto;
+
 }
 
+/* The close button */
 .closebtn {
     margin-left: 15px;
     color: white;
@@ -120,7 +143,7 @@ body {
     transition: 0.3s;
 }
 
-
+/* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
 }

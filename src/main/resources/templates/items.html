@@ -3,12 +3,73 @@
 
 <div class="itemContainer">
     <div id="uplaod">
-        <form>
-            <input type="text" placeholder="Dosya Adı" />
-            <input type="file" placeholder="Dosya Seçiniz" />
-
+        <form id="uploadForm" action="javascript:void(0)">
+            <input style="width:250px;" type="text" name="fileTitle" placeholder="Dosya Adı" />
+            <input type="file" name="file" max-size="15728640" />
             <input type="submit" value="Gönder" />
         </form>
+        <script>
+            $(function(){
+
+
+                $('form').submit(function(){
+
+                    $("#main").slideUp();
+                    $("#mask").fadeIn();
+
+                    var isOk = true;
+                    $('input[type=file][max-size]').each(function(){
+                        if(typeof this.files[0] !== 'undefined'){
+                            var maxSize = parseInt($(this).attr('max-size'),10),
+                                size = this.files[0].size;
+                            isOk = maxSize > size;
+                            if (!isOk) {
+                                onError("Hata", "Yükleme limiti 15MB'dır");
+
+                                $("#mask").fadeOut();
+                                $("#main").slideDown();
+
+                                return isOk;
+                            }else {
+                                var form = new FormData($("#uploadForm")[0]);
+                                $.ajax({
+                                    url: "/media/uploadFile",
+                                    method: "POST",
+                                    data: form,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(result){
+                                        console.log(result);
+
+                                        setTimeout(function () {
+                                            $("#mask").fadeOut();
+                                            $("#main").slideDown();
+
+                                            $("#main").load( "../items" ).fadeIn(500);
+                                        },1000);
+
+                                        onSuccess("Başarılı", "Dosya yüklendi");
+                                    },
+                                    error: function(er){
+                                        console.log(er.responseText);
+
+                                        setTimeout(function () {
+                                            $("#mask").fadeOut();
+                                            $("#main").slideDown();
+                                        },500);
+
+                                        onError("Hata", er.responseText);
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                });
+
+            });
+
+        </script>
     </div>
 
     <div id="items">

@@ -1,25 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<link rel="stylesheet" href="./../css/login.css" />
+<script src="./../js/login.js"></script>
 
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="./../css/index.css"/>
-    <script src="./../js/index.js"></script>
-
-    <link rel="stylesheet" href="./../css/index.css" />
-    <link rel="stylesheet" href="./../css/login.css"/>
-    <script src="./../js/login.js"></script>
-</head>
-<body>
-
-<div id="header">
-    adsd
-</div>
-
-<div id="loader">
-    <div id="box"></div>
-    <div id="hill"></div>
+<div id="mask">
+    <div id="loader">
+        <div id="box"></div>
+        <div id="hill"></div>
+    </div>
 </div>
 
 <div id="main">
@@ -30,11 +16,12 @@
             <ul class="steps">
                 <li class="is-active">Giriş</li>
             </ul>
-            <form id="loginForm" class="form-wrapper" action="javascript:void()">
+
+            <form id="loginForm" class="form-wrapper" action="javascript:void(0)">
                 <fieldset class="section is-active">
                     <h3>Kullanıcı Bilgileri</h3>
 
-                    <input type="text"  name="username"  id="username" placeholder="Kullanıcı Adı"/>
+                    <input type="text" name="username" id="username" placeholder="Kullanıcı Adı"/>
                     <input type="password" name="password" id="password" placeholder="Şifre"/>
 
                     <input type="button" class="button openRegister" style="margin-right: 100px;" value="Kayıt Ol"/>
@@ -44,11 +31,4 @@
         </div>
     </div>
 
-    <div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-    </div>
-
 </div>
-</body>
-</html>

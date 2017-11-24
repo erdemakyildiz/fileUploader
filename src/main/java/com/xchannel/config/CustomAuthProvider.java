@@ -34,11 +34,11 @@ public class CustomAuthProvider implements AuthenticationProvider {
         if(name==null || password==null){
             return null;
         }else{
-//            if(userService.authUser(name, password)){
+            if(userService.authUser(name, password)){
                 return new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
-//            }else{
-//                return null;
-//            }
+            }else{
+                return null;
+            }
         }
     }
 

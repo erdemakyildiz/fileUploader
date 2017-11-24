@@ -5,13 +5,18 @@ import com.xchannel.entity.User;
 import com.xchannel.service.FirebaseTokenRegisterService;
 import com.xchannel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.annotation.ServletSecurity;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by erdem akyildiz on 22.11.2017.
@@ -44,6 +49,12 @@ public class UserController {
 
     @PostMapping(path = "save", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity saveUser(User user){
+        if (StringUtils.isEmpty(user.getEmail()) || StringUtils.isEmpty(user.getUsername()) ||
+                StringUtils.isEmpty(user.getPassword())){
+
+            return ResponseEntity.badRequest().build();
+        }
+
         User savedUser = userService.saveUser(user);
 
         if (!StringUtils.isEmpty(savedUser.getId()))
@@ -53,10 +64,17 @@ public class UserController {
     }
 
     @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User getUser(@RequestParam("key") String key){
-        User user = userService.getUser(key);
+    @ResponseBody
+    public ResponseEntity<User> getUser(HttpServletRequest httpRequest){
+        User user = userService.getUser(httpRequest.getRemoteUser());
 
-        return user;
+        if (user == null){
+            return ResponseEntity.badRequest().body(null);
+        }else{
+            user.setPassword("");
+            return ResponseEntity.ok().body(user);
+        }
+
     }
 
     @RequestMapping(path = "/success")
