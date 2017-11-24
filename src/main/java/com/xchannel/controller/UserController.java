@@ -67,10 +67,12 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> getUser(HttpServletRequest httpRequest){
         User user = userService.getUser(httpRequest.getRemoteUser());
-
+        System.out.println(httpRequest.getRemoteUser());
         if (user == null){
             return ResponseEntity.badRequest().body(null);
         }else{
+
+            System.out.println(user.getUsername());
             user.setPassword("");
             return ResponseEntity.ok().body(user);
         }
