@@ -8,12 +8,12 @@ $(document).ready(function () {
         var page = $(this).text();
 
         $( ".container" ).css({ maxWidth:'100' });
-        $("#main").fadeOut().hide();
-        $("#loader").fadeIn();
+        $("#main").slideUp();
+        $("#mask").fadeIn();
 
         setTimeout(function () {
-            $("#loader").fadeOut();
-            $("#main").delay(200).load( "../items?p="+ page ).fadeIn();
+            $("#mask").fadeOut();
+            $("#main").delay(200).load( "../items?p="+ page ).slideDown();
         },2000);
     });
 });

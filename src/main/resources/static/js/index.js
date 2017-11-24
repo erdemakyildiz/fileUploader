@@ -10,7 +10,6 @@ $(document).ready(function () {
 
         success: function (data, textStatus) {
             $("#userName").html(data.username);
-            debugger
 
             setTimeout(function () {
                 $("#mask").fadeOut();
@@ -20,7 +19,6 @@ $(document).ready(function () {
             }, 1000);
         },
         error: function (err) {
-            debugger
             setTimeout(function () {
                 $(".loginUser").hide();
                 $("#mask").fadeOut();

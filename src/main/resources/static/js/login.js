@@ -18,22 +18,20 @@ $(document).ready(function(){
 
         $("#main").fadeOut(100)
         $("#mask").fadeIn();
-        debugger
         $.ajax({
             type:'POST',
             url:'/',
             data: {username:username, password:password},
             success:function(data){
-                debugger
+                $(".container").css({ maxWidth:'100%' });
+
                 setTimeout(function (data) {
-                    $(".container").css({ maxWidth:'100%' });
                     $("#mask").fadeOut();
 
                     $.ajax({
                         type: 'GET',
                         url: '/user/get',
                         success: function (data, textStatus) {
-                            debugger
                             $("#userName").html(data.username);
                             $(".loginUser").show();
                         }
@@ -43,7 +41,6 @@ $(document).ready(function(){
                 },500);
             },
             error:function (err) {
-                debugger
                 setTimeout(function () {
                     $("#mask").fadeOut();
                     $("#main").fadeIn();
@@ -85,7 +82,7 @@ $(document).ready(function(){
                 url:'/user/save',
                 data:{username:username,email:email,password:password},
                 success:function(data){
-                    debugger
+
                     var headerSection = $('.steps li').eq(currentSectionIndex);
                     currentSection.removeClass("is-active").next().addClass("is-active");
                     headerSection.removeClass("is-active").next().addClass("is-active");
@@ -97,7 +94,7 @@ $(document).ready(function(){
                     onSuccess("Başarılı", "Kullanıcı girişi yapınız.");
                 },
                 error:function (err) {
-                    debugger
+
                     var headerSection = $('.steps li').eq(currentSectionIndex);
                     currentSection.removeClass("is-active");
                     headerSection.removeClass("is-active");
