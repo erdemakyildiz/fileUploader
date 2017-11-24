@@ -32,6 +32,7 @@ $(document).ready(function(){
                         type: 'GET',
                         url: '/user/get',
                         success: function (data, textStatus) {
+                            debugger
                             $("#userName").html(data.username);
                             $(".loginUser").show();
                         }
@@ -43,6 +44,7 @@ $(document).ready(function(){
             error:function (err) {
 
                 setTimeout(function () {
+                    debugger
                     $("#mask").fadeOut();
                     $("#main").fadeIn();
                     $(".loginUser").hide();
@@ -83,6 +85,7 @@ $(document).ready(function(){
                 url:'/user/save',
                 data:{username:username,email:email,password:password},
                 success:function(data){
+                    debugger
                     var headerSection = $('.steps li').eq(currentSectionIndex);
                     currentSection.removeClass("is-active").next().addClass("is-active");
                     headerSection.removeClass("is-active").next().addClass("is-active");
@@ -94,6 +97,7 @@ $(document).ready(function(){
                     onSuccess("Başarılı", "Kullanıcı girişi yapınız.");
                 },
                 error:function (err) {
+                    debugger
                     var headerSection = $('.steps li').eq(currentSectionIndex);
                     currentSection.removeClass("is-active");
                     headerSection.removeClass("is-active");
