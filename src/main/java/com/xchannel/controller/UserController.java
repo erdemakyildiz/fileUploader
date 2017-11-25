@@ -32,11 +32,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    @GetMapping(path = "all")
-//    @ResponseBody
-//    public List<User> all(){
-//        return userService.findAll();
-//    }
+    @GetMapping(path = "all")
+    @ResponseBody
+    public List<User> all(){
+        return userService.findAll();
+    }
 
     @GetMapping(path = "login")
     public ModelAndView login(){
