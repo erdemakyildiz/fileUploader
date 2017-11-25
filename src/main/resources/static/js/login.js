@@ -16,7 +16,7 @@ $(document).ready(function(){
         var username = $("#username").val();
         var password = $("#password").val();
 
-        $("#main").hide();
+        $("#main").fadeOut(500);
         $("#mask").fadeIn();
 
         $.ajax({
@@ -38,7 +38,10 @@ $(document).ready(function(){
                         }
                     });
 
-                    $("#main").load( "../items" ).fadeIn(200);
+                    $("#main").load( "../items" ,function() {
+                        $("#main").fadeIn(500);
+                    });
+
                 },1000);
             },
             error:function (err) {
@@ -59,7 +62,7 @@ $(document).ready(function(){
 
     $(".form-wrapper .openRegister").click(function(){
         $("#main").hide();
-        $("#main").hide().load( "../register" ).fadeIn('2500');
+        $("#main").hide().load( "../register" ).fadeIn(500);
     });
 
     $(".form-wrapper .registerButton").click(function(){
