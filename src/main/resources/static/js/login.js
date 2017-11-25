@@ -16,8 +16,10 @@ $(document).ready(function(){
         var username = $("#username").val();
         var password = $("#password").val();
 
-        $("#main").fadeOut(100)
+        $("#main").fadeOut();
         $("#mask").fadeIn();
+
+        $(".container").css({ maxWidth:'100%' });
         $.ajax({
             type:'POST',
             url:'/',
@@ -34,8 +36,6 @@ $(document).ready(function(){
                             $(".loginUser").show();
                         }
                     });
-
-                    $(".container").css({ maxWidth:'100%' });
 
                     $("#main").load( "../items" ).fadeIn(500);
                 },500);

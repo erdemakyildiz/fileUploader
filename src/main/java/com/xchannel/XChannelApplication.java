@@ -16,11 +16,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 public class XChannelApplication {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(XChannelApplication.class, args);
@@ -30,12 +25,7 @@ public class XChannelApplication {
     public CommandLineRunner run() {
         return new CommandLineRunner() {
             public void run(String... args) throws Exception {
-                userService.findAll().forEach(user -> {
-                    if (user.getUsername().equals("erdem")){
-                        user.setRole("ADMIN");
-                        userRepository.save(user);
-                    }
-                });
+
             }
         };
     }
