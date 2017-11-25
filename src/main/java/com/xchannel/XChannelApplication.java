@@ -1,5 +1,6 @@
 package com.xchannel;
 
+import com.xchannel.repository.UserRepository;
 import com.xchannel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,9 @@ public class XChannelApplication {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(XChannelApplication.class, args);
     }
@@ -28,7 +32,8 @@ public class XChannelApplication {
             public void run(String... args) throws Exception {
                 userService.findAll().forEach(user -> {
                     if (user.getUsername().equals("erdem")){
-                        userService.deleteUser(user);
+                        user.setRole("ADMIN");
+                        userRepository.save(user);
                     }
                 });
             }

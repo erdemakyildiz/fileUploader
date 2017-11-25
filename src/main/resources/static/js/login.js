@@ -23,8 +23,6 @@ $(document).ready(function(){
             url:'/',
             data: {username:username, password:password},
             success:function(data){
-                $(".container").css({ maxWidth:'100%' });
-
                 setTimeout(function (data) {
                     $("#mask").fadeOut();
 
@@ -36,6 +34,8 @@ $(document).ready(function(){
                             $(".loginUser").show();
                         }
                     });
+
+                    $(".container").css({ maxWidth:'100%' });
 
                     $("#main").load( "../items" ).fadeIn(500);
                 },500);
