@@ -34,18 +34,23 @@ public class UserController {
 
     @GetMapping(path = "all")
     @ResponseBody
-    public List<User> all(){
-        return userService.findAll();
+    public List<User> all() {
+        List<User> users = userService.findAll();
+        users.forEach(user -> {
+            user.setPassword("");
+        });
+
+        return users;
     }
 
     @GetMapping(path = "login")
-    public ModelAndView login(){
+    public ModelAndView login() {
         return new ModelAndView("login");
     }
 
     @PostMapping(path = "token")
     @ResponseBody
-    public void registerToken(@RequestParam("token") String token){
+    public void registerToken(@RequestParam("token") String token) {
         if (firebaseTokenRegisterService.findToken(token) == null) {
             FirebaseToken firebaseToken = new FirebaseToken();
             firebaseToken.setFirebaseToken(token);
@@ -55,16 +60,16 @@ public class UserController {
     }
 
     @PostMapping(path = "save", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveUser(User user){
+    public ResponseEntity saveUser(User user) {
         if (StringUtils.isEmpty(user.getEmail()) || StringUtils.isEmpty(user.getUsername()) ||
-                StringUtils.isEmpty(user.getPassword())){
+                StringUtils.isEmpty(user.getPassword())) {
 
             return ResponseEntity.badRequest().build();
         }
 
 
         if (userService.getUser(user.getUsername()) == null &&
-                userService.getUser(user.getEmail()) == null ) {
+                userService.getUser(user.getEmail()) == null) {
 
             User savedUser = userService.saveUser(user);
 
@@ -72,19 +77,19 @@ public class UserController {
                 return ResponseEntity.ok().build();
             else
                 return ResponseEntity.badRequest().build();
-        }else {
+        } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<User> getUser(HttpServletRequest httpRequest){
+    public ResponseEntity<User> getUser(HttpServletRequest httpRequest) {
         User user = userService.getUser(httpRequest.getRemoteUser());
         System.out.println(httpRequest.getRemoteUser());
-        if (user == null){
+        if (user == null) {
             return ResponseEntity.badRequest().body(null);
-        }else{
+        } else {
             user.setPassword("");
             return ResponseEntity.ok().body(user);
         }
@@ -92,12 +97,12 @@ public class UserController {
     }
 
     @RequestMapping(path = "/success")
-    public ResponseEntity loginSuccess(){
+    public ResponseEntity loginSuccess() {
         return ResponseEntity.ok().build();
     }
 
     @RequestMapping(path = "/error")
-    public ResponseEntity loginError(){
+    public ResponseEntity loginError() {
         return ResponseEntity.badRequest().build();
     }
 
