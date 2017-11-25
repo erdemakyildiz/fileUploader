@@ -16,7 +16,7 @@ $(document).ready(function(){
         var username = $("#username").val();
         var password = $("#password").val();
 
-        $("#main").fadeOut(500);
+        $("#main").hide();
         $("#mask").fadeIn();
 
         $.ajax({
