@@ -67,7 +67,6 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-
         if (userService.getUser(user.getUsername()) == null &&
                 userService.getUser(user.getEmail()) == null) {
 

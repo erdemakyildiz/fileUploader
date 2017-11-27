@@ -1,5 +1,5 @@
 .itemContainer{
-    height: 520px;
+    height: 600px;
     width: 100%;
     margin: 0 auto;
     position: relative;
@@ -13,7 +13,7 @@
 }
 
 #items{
-    height: 420px;
+    height: 500px;
     border-bottom: 1px solid #cccccc;
 }
 
