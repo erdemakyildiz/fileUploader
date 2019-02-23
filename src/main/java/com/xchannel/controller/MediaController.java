@@ -65,7 +65,7 @@ public class MediaController {
         Media dbMedia = mediaService.findByTitle(fileTitle);
 
         if (fileTitle.isEmpty()) {
-            return ResponseEntity.badRequest().body("İfşa Adı Zorunludur !");
+            return ResponseEntity.badRequest().body("İsim alanı zorunludur");
         }else if (dbMedia != null){
             return ResponseEntity.badRequest().body("Bu isimde var zaten");
         } else {
@@ -83,14 +83,14 @@ public class MediaController {
             try {
                 inputStream = file.getInputStream();
             } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Hata var aq : " + e.getMessage());
+                return ResponseEntity.badRequest().body("Hata var : " + e.getMessage());
             }
 
             GridFSFile gridFSFile = gridFsTemplate.store(inputStream, file.getName(), file.getContentType());
             media.setFileObjectId(gridFSFile.getId().toString());
 
             mediaService.save(media);
-            return ResponseEntity.ok().body("ok");
+            return ResponseEntity.ok().build();
         }
 
 
